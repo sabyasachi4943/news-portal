@@ -21,7 +21,6 @@ const displayCategories = (categories) => {
 };
 
 const displayNews = (newsContent = {}) => {
-  console.log(newsContent.length);
   const newsNumber = document.getElementById("newsNumber");
   newsNumber.textContent = `Here is only ${newsContent.length} news`;
   const newsContainer = document.getElementById("newsCard");
@@ -30,11 +29,14 @@ const displayNews = (newsContent = {}) => {
     newsContainer.textContent = `NO data `;
   }
   newsContent.forEach((news = {}) => {
-    
+    // for (const newe in news){
+    //   console.log(newe["total_view"]);
+    // }
+    // // const sorted = [news.total_view].sort();
+    // // console.log(sorted);
     const contentDiv = document.createElement("div");
     if (news === {}) {
       contentDiv.innerHTML = `<div><h1>no data</h1></div>  `;
-      console.log("hhhh");
     } else {
       contentDiv.innerHTML = `
           <div class="card mx-auto" style="max-width: 60%">
@@ -93,7 +95,7 @@ const displayNews = (newsContent = {}) => {
 };
 
 const newsLoadId = async (id) => {
-  console.log(id);
+  
   const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -102,7 +104,7 @@ const newsLoadId = async (id) => {
 };
 
 const displayModal = (newsTitle, views, author) => {
-  console.log(newsTitle, views, author);
+  // console.log(newsTitle, views, author);
   const modalTitle = document.getElementById("newsDetailModalLabel");
   modalTitle.innerText = newsTitle;
   const newsDetails = document.getElementById("news-details");
