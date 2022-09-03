@@ -21,15 +21,16 @@ const displayCategories = (categories) => {
 };
 
 const displayNews = (newsContent = {}) => {
-  console.log(newsContent);
-
+  console.log(newsContent.length);
+  const newsNumber = document.getElementById("newsNumber");
+  newsNumber.textContent = `Here is only ${newsContent.length} news`;
   const newsContainer = document.getElementById("newsCard");
   newsContainer.textContent = ``;
   if (newsContent.length == 0) {
     newsContainer.textContent = `NO data `;
   }
   newsContent.forEach((news = {}) => {
-    console.log(news);
+    
     const contentDiv = document.createElement("div");
     if (news === {}) {
       contentDiv.innerHTML = `<div><h1>no data</h1></div>  `;
@@ -97,6 +98,7 @@ const newsLoadId = async (id) => {
   const res = await fetch(url);
   const data = await res.json();
   displayNews(data.data ? data.data : "NOT E");
+  
 };
 
 const displayModal = (newsTitle, views, author) => {
