@@ -20,18 +20,16 @@ const displayCategories = (categories) => {
   toggleSpinner(true);
 };
 
-
 const displayNews = (newsContent = {}) => {
-    
-    console.log(newsContent);
-  
-    const newsContainer = document.getElementById("newsCard");
-    newsContainer.textContent = ``;
-    if (newsContent.length == 0) {
-      newsContainer.textContent = `NO data `;
-    }
+  console.log(newsContent);
+
+  const newsContainer = document.getElementById("newsCard");
+  newsContainer.textContent = ``;
+  if (newsContent.length == 0) {
+    newsContainer.textContent = `NO data `;
+  }
   newsContent.forEach((news = {}) => {
-    console.log(news)
+    console.log(news);
     const contentDiv = document.createElement("div");
     if (news === {}) {
       contentDiv.innerHTML = `<div><h1>no data</h1></div>  `;
@@ -47,13 +45,17 @@ const displayNews = (newsContent = {}) => {
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">${news.title ? news.title: "nodtat"}</h5>
+                <h5 class="card-title">${
+                  news.title ? news.title : "nodtat"
+                }</h5>
                 <p class="card-text">
-                  ${news.details.slice(0,500)}...
+                  ${news.details.slice(0, 500)}...
                 </p>
                 <div class="d-flex ">
                   <div class="col-md-4 col-sm-6 d-flex align-items-center">
-                    <img width="${50}" src="${news.author.img}" alt="John Smith">
+                    <img width="${50}" src="${
+        news.author.img
+      }" alt="John Smith">
                     <h5 class="ms-3">${
                       news.author.name ? news.author.name : "not available"
                     }</h5>
@@ -68,31 +70,44 @@ const displayNews = (newsContent = {}) => {
                     news.total_view ? news.total_view : "not available"
                   }</small>
                 </p>
+                <p class="card-text mx-2 fw-bold">
+                <button onclick="displayModal('${news.title}','${
+        news.total_view ? news.total_view : "not available"
+      }','${news.author.name}')" href="#" id="${
+        news._id
+      }" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Show Details</button>
+                </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       `;
-
     }
     newsContainer.appendChild(contentDiv);
-    
   });
   toggleSpinner(false);
 };
 
-const newsLoadId = async(id) => {
+const newsLoadId = async (id) => {
   console.log(id);
   const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
   const res = await fetch(url);
   const data = await res.json();
-  displayNews(data.data?data.data:"NOT E");
+  displayNews(data.data ? data.data : "NOT E");
 };
 
-const displayModal = () => {
+const displayModal = (newsTitle, views, author) => {
+  console.log(newsTitle, views, author);
+  const modalTitle = document.getElementById("newsDetailModalLabel");
+  modalTitle.innerText = newsTitle;
+  const newsDetails = document.getElementById("news-details");
 
-}
+  newsDetails.innerHTML = `
+    <p>Total Views: ${views ? views : "No Data Found"}</p>
+        <p>Author: ${author? author : "No author Information"}</p>
+  `;
+};
 
 const toggleSpinner = (isLoading) => {
   const loaderSection = document.getElementById("loader");
@@ -104,4 +119,3 @@ const toggleSpinner = (isLoading) => {
 };
 
 toggleSpinner(false);
-
