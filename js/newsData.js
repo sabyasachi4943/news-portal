@@ -73,7 +73,9 @@ const displayNews = (newsContent = {}) => {
                 <p class="card-text mx-2 fw-bold">
                 <button onclick="displayModal('${news.title}','${
         news.total_view ? news.total_view : "not available"
-      }','${news.author.name}')" href="#" id="${
+      }','${
+        news.author.name ? news.author.name : "not available"
+      }')" href="#" id="${
         news._id
       }" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Show Details</button>
                 </p>
@@ -104,8 +106,8 @@ const displayModal = (newsTitle, views, author) => {
   const newsDetails = document.getElementById("news-details");
 
   newsDetails.innerHTML = `
-    <p>Total Views: ${views ? views : "No Data Found"}</p>
-        <p>Author: ${author? author : "No author Information"}</p>
+    <p>Total Views: ${views ? views : "not available"}</p>
+        <p>Author: ${author ? author : "not available"}</p>
   `;
 };
 
